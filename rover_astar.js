@@ -170,25 +170,32 @@ function draw() {
 		{
             	var neighbor = neighbors[i];
 
-if (!closedSet.includes(neighbor) && !neighbor.wall) {
-                var tempG = current.g + 1;
-                var newPath = false;
+		if (!closedSet.includes(neighbor) && !neighbor.wall) 
+			{
+                	var tempG = current.g + 1;
+                	var newPath = false;
 
-                if (openSet.includes(neighbor)) {
-                    if (tempG < neighbor.g) {
-                        neighbor.g = tempG;
-                        newPath = true;
-                    }
-                } else {
-                    neighbor.g = tempG;
-                    newPath = true;
-                    openSet.push(neighbor);
-                }
-                if (newPath) {
-                    neighbor.h = heuristic(neighbor, end);
-                    neighbor.f = neighbor.g + neighbor.h;
-                    neighbor.previous = current;}
-                	
+                	if (openSet.includes(neighbor))
+				{
+                    		if (tempG < neighbor.g) 
+					{
+                        		neighbor.g = tempG;
+                        		newPath = true;
+                    			}
+                		} 
+			else 
+				{
+                    		neighbor.g = tempG;
+                    		newPath = true;
+                    		openSet.push(neighbor);
+                		}
+				
+                	if (newPath) 
+				{
+                    		neighbor.h = heuristic(neighbor, end);
+                    		neighbor.f = neighbor.g + neighbor.h;
+                    		neighbor.previous = current;
+				}
                 	}
         	}
 	}
