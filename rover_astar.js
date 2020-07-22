@@ -170,26 +170,25 @@ function draw() {
 		{
             	var neighbor = neighbors[i];
 
-            	if (!neighbor.wall) 	//if neighbor is not an obstacle
-			{
-                	var tempG = current.g + 1;	//tempG = current.g + cost of edge between current and neighbor, assumed to be 1
-               		//var newPath = false;
+if (!closedSet.includes(neighbor) && !neighbor.wall) {
+                var tempG = current.g + 1;
+                var newPath = false;
 
-                	if (openSet.includes(neighbor)) 
-				{
-                    		if (tempG < neighbor.g) 	//if neighbor is already in openSet but tempG < neighbor.g
-					neighbor.g = tempG;	//change neighbor.g to tempG, better path from start to neighbor has been found
-                		}
-				
-			else 	//if neighbor is not in openSet
-				{
-                    		neighbor.g = tempG;		//assign tempG to neighbor.g
-                    		openSet.push(neighbor);		//add neighbor to openSet
-                		}
-				
-                	neighbor.h = heuristic(neighbor, end);	
-                    	neighbor.f = neighbor.g + neighbor.h;
-                    	neighbor.previous = current;		//since neighbor will be the next step, previous of neighbor is current
+                if (openSet.includes(neighbor)) {
+                    if (tempG < neighbor.g) {
+                        neighbor.g = tempG;
+                        newPath = true;
+                    }
+                } else {
+                    neighbor.g = tempG;
+                    newPath = true;
+                    openSet.push(neighbor);
+                }
+                if (newPath) {
+                    neighbor.h = heuristic(neighbor, end);
+                    neighbor.f = neighbor.g + neighbor.h;
+                    neighbor.previous = current;}
+                	
                 	}
         	}
 	}
